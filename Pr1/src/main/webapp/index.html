@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<style>
+	/* Dropdown Button */
+	.dropbtn {
+		background-color: #3498DB;
+		color: white;
+		padding: 16px;
+		font-size: 16px;
+		border: none;
+		cursor: pointer;
+	}
+
+	/* Dropdown button on hover & focus */
+	.dropbtn:hover,
+	.dropbtn:focus {
+		background-color: #2980B9;
+	}
+
+	/* The container <div> - needed to position the dropdown content */
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Dropdown Content (Hidden by Default) */
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+
+	/* Links inside the dropdown */
+	.dropdown-content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	}
+
+	/* Change color of dropdown links on hover */
+	.dropdown-content a:hover {
+		background-color: #ddd
+	}
+
+	/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+	.show {
+		display: block;
+	}
+
+	input[type=textarea],
+	select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	input[type=text],
+	select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	input[type=password],
+	select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	input[type=submit] {
+		width: 100%;
+		background-color: #b9c8ef;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	input[type=submit]:hover {
+		background-color: #a3caf5;
+	}
+
+	div {
+		border-radius: 5px;
+		background-color: #f2f2f2;
+		padding: 20px;
+	}
+
+	.sidenav {
+		height: 100%;
+		width: 160px;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		background-color: #e4e5e0;
+		overflow-x: hidden;
+		padding-top: 20px;
+	}
+
+	.sidenav a {
+		padding: 6px 8px 6px 16px;
+		text-decoration: none;
+		font-size: 20px;
+		color: #6d8dc3;
+		display: block;
+	}
+
+	.sidenav a:hover {
+		color: #a0b8e1;
+	}
+
+	.main {
+		display: inline-block;
+		margin-left: 160px;
+		/* Same as the width of the sidenav */
+		font-size: 28px;
+		/* Increased text to enable scrolling */
+		padding: 0px 10px;
+		position: relative;
+
+		@media screen and (max-height: 450px) {
+			.sidenav {
+				padding-top: 15px;
+			}
+
+			.sidenav a {
+				font-size: 18px;
+			}
+		}
+</style>
+
+<body id="wall" style="background-color: #2f466d;">
+	<br />
+	<br />
+	<div id="content" style="position:relative; background-color: transparent; padding-left:400px;">
+		<div id="login" style="width: 500px; margin: auto; position: absolute;">
+			<h2 align="center" class="display-3">Industrial Illusions TMS</h2>
+			<p style="color:red; visibility: hidden;" id="error">Username, or password incorrect...</p>
+			<label for="Uname">Username</label>
+			<input type="text" id="Uname" name="Uname" placeholder="Username" width="50%">
+			<label for="pWord">Password</label>
+			<input type="password" id="pWord" name="pWord" placeholder="Password">
+			<input type="submit" value="Log in" onclick="getemployee()">
+		</div>
+		<div id="Balance" style="visibility: hidden;float:right"></div>
+		<div id="form" style="display: block;visibility: hidden; margin: auto; position:absolute; width:500px ">
+			<h1>Tuition Reimbursement Request Form</h1>
+			<label>Please Enter the Information for the event below</label>
+			<br />
+			<label for="date">Date</label>
+			<br />
+			<input name="date" type="date" id="eventDate" />
+			<br />
+			<label for="time">Time</label>
+			<br />
+			<input name="time" type="time" id="eventTime" />
+			<br />
+			<label for="location">Location</label>
+			<input name="location" type="text" id="venue" />
+			<label for="TypeForm">Type of Event</label>
+			<select name="TypeForm" id="type">
+				<option value="default0">Select a type...</option>
+				<option value="uni">University Course</option>
+				<option value="seminar">Seminar</option>
+				<option value="certifPrep">Certification Preparation</option>
+				<option value="certif">Certification</option>
+				<option value="tech">Technical Training</option>
+				<option value="other">Other</option>
+			</select>
+			<label for="description">Description</label>
+			<br />
+			<textarea id="description" row="5" cols="10" style="width:100%"></textarea>
+			<label for="GradingForm">Type of Event</label>
+			<select name="GradingForm" id="grading">
+				<option value="default0">Select a grading format...</option>
+				<option value="letGrade">LetterGrade</option>
+				<option value="passFail">Pass/Fail</option>
+				<option value="percent">Percentage(of 100)</option>
+			</select>
+			<label for="cost">Cost of the Event </label>
+
+			<input id="cost" name="cost" type="number" min="1" step="any" />
+			<label for="grade">Current Grade</label>
+			<input id="grade" type="text">
+			<input type="submit" value="Submit Request" onclick="createEventRequestForm()">
+
+
+		</div>
+		
+		<br/>
+		<div id="usersByDept" style="visibility: hidden;"></div>
+		<div id="listOfPendingForms" style="visibility: hidden;"></div>
+		<div id="TuitionInfo_andTransactions" style="visibility: hidden;"></div>
+
+		<div class="sidenav" style="visibility: hidden;" id="main">
+			<a style="color:#818181">Welcome!</a>
+			<a onclick="formCreator()">Create a new form!</a>
+			<a onclick="logout()">Log out</a>
+		</div>
+	</div>
+
+</body>
+
+<script>
+
+	function logout() {
+		document.getElementById("form").style.visibility = "hidden";
+		document.getElementById("login").style.visibility = "visible";
+		document.getElementById("main").style.visibility = "hidden";
+		document.getElementById("Balance").style.visibility = "hidden";
+		document.getElementById("error").style.visibility = "hidden";
+		window.sessionStorage.clear();
+	}
+
+
+	function getemployee() {
+		//First we handle null checking without sending a request to the db..
+		let name = document.getElementById("Uname").value;
+		let pword = document.getElementById("pWord").value;
+		if (name == "" || pword == "") {
+			document.getElementById("error").innerHTML = "You must provide both a username and password...";
+			document.getElementById("error").style.visibility = "visible";
+
+			return;
+		} else {
+
+			let employee = {
+				userName: name,
+				password: pword
+			}
+
+			//Make an AJAX Call
+			let xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == 4 && this.status == 200) {
+
+					console.log(this.responseText);
+					var data = JSON.parse(this.responseText);
+					if (this.responseText != {}) {
+						document.getElementById("login").style.visibility = "hidden";
+						document.getElementById("main").style.visibility = "visible";
+						document.getElementById("error").style.visibility = "hidden";
+
+						window.sessionStorage.setItem("id", data.emp_id);
+						window.sessionStorage.setItem("username", name);
+						window.sessionStorage.setItem("department", data.dept_id);
+						window.sessionStorage.setItem("supervisor", data.supervisor);
+						generateUI(data);
+					} else if (this.responseText == {}) {
+						document.getElementById("error").style.visibility = "hidden";
+					}
+				}
+			}
+			xhttp.open("GET", "http://localhost:8080/Pr1/login.do?userName=" + name + "&password=" + pword, true);
+			xhttp.setRequestHeader('Content-Type', 'application/json');
+			xhttp.send(JSON.stringify(employee));
+		}
+	}
+
+	function getAllEmployeesInDepartment() {
+		let name = document.getElementById("Uname").value;
+		let pword = document.getElementById("pWord").value;
+
+		let employee = {
+			userName: name,
+			password: pword,
+			department_id: dept
+		}
+
+		let xhttp = new XMLHttpRequest();
+
+		if (this.readyState == 4 && this.status == 200) {
+
+			console.log("Object provided:");
+			console.log(this.responseText);
+		}
+
+		xhttp.open("GET", "http://localhost:8080/Pr1/login.do?userName=" + name
+			+ "&password=" + pword, true);
+		xhttp.setRequestHeader('Content-Type', 'application/json');
+		xhttp.send(JSON.stringify(employee));
+	}
+
+	function formCreator() {
+		var x = document.cookie;
+		var form = document.getElementById("form");
+		form.style.visibility = "visible";
+	}
+
+	function generateUI(data) {
+		//buildTransactions()
+		buildBalance();
+	}
+	function buildPending() {
+
+	}
+	function buildApproval() {
+
+	}
+	function buildTransactions() {
+		let
+			transaction =
+			{
+				associate_id: sessionStorage.getItem("id"),
+				account_id: '0',
+				balance: '0.00'
+			}
+		let xhttp = new XMLHttpRequest();
+
+		if (this.readyState == 4 && this.status == 200) {
+
+			console.log("Object provided:");
+			console.log(this.responseText);
+			document.getElementById("Balance").style.visibility = "visible";
+		}
+
+		xhttp.open("GET", "http://localhost:8080/Pr1/balance.do?emp_id=" + name, true);
+		xhttp.setRequestHeader('Content-Type', 'application/json');
+		xhttp.send();
+	}
+	function buildBalance() {
+
+		let balanceRequest = new XMLHttpRequest();
+		balanceRequest.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(this.responseText);
+				var data = JSON.parse(this.responseText);
+				window.sessionStorage.setItem("acct_balance", data.remainder);
+				document.getElementById("Balance").innerHTML = "Current Balance: " + window.sessionStorage.getItem("acct_balance");
+				document.getElementById("Balance").style.visibility = "visible";
+			}
+		}
+		balanceRequest.open("GET", "http://localhost:8080/Pr1/balance.do?emp_id=" + window.sessionStorage.getItem("id"), true);
+		balanceRequest.setRequestHeader('Content-Type', 'application/json');
+		balanceRequest.send();
+
+	}
+	function createEventRequestForm() {
+
+		let date = document.getElementById("eventDate").value;
+		let time = document.getElementById("eventTime").value;
+		let location = document.getElementById("venue").value;
+		let type = document.getElementById("type").value;
+		let description = document.getElementById("description").value;
+		let grading = document.getElementById("grading").value;
+		let cost = document.getElementById("cost").value;
+		let grade = document.getElementById("grade").value;
+
+		event = {
+			date: date,
+			emp_id: sessionStorage.getItem("id"),
+			time: time,
+			location: location,
+			type: type,
+			description: description,
+			cost: cost,
+			grade_type: grading,
+			grade: grade
+		}
+		console.log(event);
+
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+
+				console.log("Object provided:");
+				console.log(this.responseText); 
+
+
+			}
+		}
+		xhttp.open("POST", "http://localhost:8080/Pr1/newform.do?emp_id=?" + event.emp_id + "&date=" + event.date + "&time=" + event.time + "&location=" + event.location +
+			"&eventType=" + event.type + "&description=" + event.description + "&cost=" + event.cost + "&gradeType=" + event.grade_type + "&grade=" + event.grade, true);
+		xhttp.setRequestHeader('Content-Type', 'application/json');
+		xhttp.send();
+
+	}
+
+</script>
+
+
+</html>
